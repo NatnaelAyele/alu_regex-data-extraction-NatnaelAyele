@@ -83,6 +83,31 @@ def extract_urls(text: str) -> list:
                 
     return safe_urls
 
+def extract_emails(text: str) -> list:
+    pattern = r'\b[a-zA-Z0-9._%+-]+(?<!\.)@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}\b'
+    found = re.findall(pattern, text)
+    return [email for email in found if ".." not in email]
+
+def extract_hashtags(text: str) -> list:
+    pattern = r'#[0-9_]*[A-Za-z][A-Za-z0-9_]*'
+    return re.findall(pattern, text)
+
+def extract_credit_cards(text: str) -> list:
+    pattern = r'\b(?:\d{4}[- ]\d{4}[- ]\d{4}[- ]\d{4})\b'
+    matches = re.findall(pattern, text)
+
+    masked_cards = []
+    for card in matches:
+        last_four = card[-4:]
+        masked_cards.append("**** **** **** " + last_four)
+
+    return masked_cards
+
+def extract_currency(text: str) -> list:
+    pattern = r'(?<!#)\$\s?\d{1,3}(?:,\d{3})*(?:\.\d{2})?\b'
+    return re.findall(pattern, text)
+
+
 
 
 def write_output(file_path: str, data: dict) -> None:
@@ -93,7 +118,11 @@ def main():
     raw_text = read_input(INPUT_FILE)
 
     results = {
-        "urls": extract_urls(raw_text)
+        "emails": extract_emails(raw_text),
+        "urls": extract_urls(raw_text),
+        "credit_cards": extract_credit_cards(raw_text),
+        "currency_amounts": extract_currency(raw_text),
+        "hashtags": extract_hashtags(raw_text)
     }
 
     write_output(OUTPUT_FILE, results)
