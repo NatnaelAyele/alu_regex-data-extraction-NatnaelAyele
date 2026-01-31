@@ -14,111 +14,21 @@ def read_input(file_path: str) -> str:
     with open(file_path, "r", encoding="utf-8") as f:
         return f.read()
 
-def is_safe_url(raw_line: str) -> bool:
+
+
+def extract_urls(text: str) -> list[str]:
     """
-    Checks whether a given URL is safe and valid.
-    """
-    
-    # Normalize unicode characters so that hidden or tricky characters are converted into a standard form
-    normalized = unicodedata.normalize('NFKC', raw_line)
-    decoded = urllib.parse.unquote(normalized).lower()
-
-    # Reject URLs that contain quotes, which are often used in injections
-    if '"' in decoded or "'" in decoded:
-        return False
-
-    # List of dangerous keywords and patterns commonly used in attacks
-    danger_flags = [
-        '<script', '<img', 'onerror', 'onload', 'alert(', 
-        'javascript:', 'vbscript:', 'data:',             
-        'or 1=1', "' or '", "admin'", "'--", "union select", 
-        'drop table', 'drop ', 'delete from',            
-        '../', '..\\'                                    
-    ]
-
-    for flag in danger_flags:
-        if flag in decoded:
-            return False
-
-    url_candidate = raw_line.split()[0]
-    
-
-    # URLs with too many slashes like "http:///" are invalid
-    if ":///" in url_candidate:
-        return False
-
-    try:
-        # Parse the URL into components (scheme, domain, path, etc.)
-        parsed = urllib.parse.urlparse(url_candidate)
-        domain = parsed.netloc
-
-        if parsed.scheme not in ['http', 'https']:
-            return False
-        
-        # URL must have a domain name
-        if not domain:
-            return False
-        
-         # Domain should contain a dot (except for localhost)
-        if '.' not in domain and domain != 'localhost':
-            return False
-
-        if domain.endswith('.'):
-            return False
-        # Double dots in domains are rejected
-        if '..' in domain:
-            return False
-        
-        domain.encode('ascii')
-        
-    except (UnicodeEncodeError, AttributeError, Exception):
-        return False
-    
-    # If all checks pass, the URL is considered safe
-    return True
-
-def extract_urls(text: str) -> list:
-    """
-    Scans the input text line by line and extracts URLs found in it.
-    Each URL is cleaned and checked using the safety validation function (is_safe_url()).
+    Extracts a valid url from a block of text using a regex pattern and returns them.
     """
 
-    safe_urls = []
-
-    # Split the input text into individual lines
-    lines = text.splitlines()
-
-    for line in lines:
-        line = line.strip()
-
-        # Skip empty lines
-        if not line: 
-            continue
-
-         # Look for a URL starting with http:// or https://
-        match = re.search(r'https?://.+', line)
-        if match:
-            full_segment = match.group(0)
-            
-            url_candidate = full_segment.split()[0]
-
-            if not url_candidate:
-                continue
-
-            # Remove trailing punctuation like "." or ","
-            last_char = url_candidate[-1]
-            if last_char in ['.', ',']:
-                url_candidate = url_candidate[:-1]
-            
-             # If the URL ends with an invalid character, skip it
-            elif not last_char.isalnum() and last_char != '/':
-                continue
-
-            # Check if the URL passes all safety rules
-            if is_safe_url(url_candidate):
-                safe_urls.append(url_candidate)
-                
-    return safe_urls
+    # regex pattern to extract valid url adress.
+    # It is able to succesfuly  reject common patterns found malicious urls, such as sql injection, path traversing, url encoding and the like
+    URL_REGEX = re.compile(
+    r"""(?xi)\bhttps?://(?![^\s]*?(?:javascript:| data:| vbscript:| <|>|'|"| %3c|%3e| %ef%bc| %2e%2e| \bor\b\s+\d+=\d+))(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}(?::\d{1,5})?(?:/[^\s<>"']*)?
+    """,
+    re.VERBOSE | re.IGNORECASE,
+)
+    return [m.group(0) for m in URL_REGEX.finditer(text)]
 
 def extract_emails(text: str) -> list:
     """
