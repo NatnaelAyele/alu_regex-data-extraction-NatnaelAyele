@@ -73,8 +73,6 @@ Promotion #Launch2025
 
 * Emails and credit-card-like values are masked by default in output to reduce exposure.
 * The URL regex attempts to reject obvious malicious patterns, but it is not a substitute for a dedicated URL validation/sanitization library. Do not rely solely on this script for security-critical URL handling.
-* The script does not perform Luhn checks or issuer detection for credit-card numbers and should not be used to store or process real card numbers in production.
-
 
 ## Customization
 
