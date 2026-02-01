@@ -141,7 +141,10 @@ def main():
 
     # prints the result in the terminal
     print(json.dumps(results, indent=4))
-
+    
+    
+    print("")
+    print("Kindly Note that this message is also saved into the file 'output.json'!!!")
 
 if __name__ == "__main__":
     main()
