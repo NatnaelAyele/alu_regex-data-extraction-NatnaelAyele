@@ -7,8 +7,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 
 # Input and output file names
-INPUT_FILE = BASE_DIR / "sample_input.txt"
-OUTPUT_FILE = BASE_DIR / "sample_output.json"
+INPUT_FILE = BASE_DIR / "input.txt"
+OUTPUT_FILE = BASE_DIR / "output.json"
 
 
 # Reads all text from the given input file and returns it as a single string.
@@ -39,9 +39,7 @@ def extract_emails(text: str) -> list:
 
     # Regex pattern to match valid email addresses
     pattern = r'\b[a-zA-Z0-9._%+-]+(?<!\.)@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}\b'
-    found = re.findall(pattern, text)
-
-    # Filter out emails that contain double dots (..) and return
+    found = re.findall(pattern, text)    
     return [email for email in found if ".." not in email]
 
 
