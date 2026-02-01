@@ -1,12 +1,14 @@
 import re
 import json
-import urllib.parse
-import unicodedata
+from pathlib import Path
 
+
+# Defines the base directory
+BASE_DIR = Path(__file__).resolve().parent
 
 # Input and output file names
-INPUT_FILE = "sample_input.txt"
-OUTPUT_FILE = "sample_output.json"
+INPUT_FILE = BASE_DIR / "sample_input.txt"
+OUTPUT_FILE = BASE_DIR / "sample_output.json"
 
 
 # Reads all text from the given input file and returns it as a single string.
