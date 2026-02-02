@@ -2,7 +2,8 @@
 
 2026-01-28T14:07:22Z shard=3 off=99102
 john.doe@gmail.com|4111111111115422|$1249.99|https://www.example.com
-failed adress user@.company.com failed routes ttps://example.com/search?q=<script>alert(1)</script> https://example.com/page?redirect=javascript:alert(1) https://evil.com/?payload=<img src=x onerror=alert(1)>
+failed adress user@.company.com failed routes ttps://example.com/search?q=<script>alert(1)</script> https://example.com/page?redirect=javascript:alert(1) 
+https://evil.com/?payload=<img src=x onerror=alert(1)>
 
 rx_err retry=1 payload="admin@company.com 4111-1111-1111-9632 USD45.999"
 cache_line: user@@example.com|$12,49.99|http://example|#LaunchDay#BigSale visted next http://blog.myservice.net and http://myservice.net/users/profile
@@ -20,12 +21,12 @@ flush_line: USD 45.999 $0.99 #sale! # #2026#promo
 
 [Log--2]
 
-pulled from cache 14:07:22Z retry=2 user said email was john.doe@gmail.com
+pulled from cache 14:07:22Z retry=2 user said email was test.user@gmail.com
  but last time typed johndoe@gmail,com and then pasted https://www.example.com?ref=home
 
 paid $1,249.99 yesterday then wrote “total was $1249.99?? or $12,49.99 idk” card 4111 1111 1111 7777 declined then 4111-1111-2225 used again
 
-random marketing dump #LaunchDay#BigSale text mashed with link https://sub.domain-example.org/deals?page=3&x=1 #section
+random marketing dump #Blackfirday#buymore text mashed with link https://sub.domain-example.org/deals?page=3&x=1
  and broken http://example
 
 someone injected javascript:alert(1) right after email admin@company.com
@@ -39,10 +40,10 @@ currency noise $$100.00 $19.0 $19.00 USD 45.999
 
 hashtags scraped #ThisIsAHashtag #sale! # #2026#promo mixed into text no separators
 email backup john.doe+alerts@gmail.com
- but user@@example.com also seen
+ but user@@example.com also pasted https://example.com/login?next=%2F%2E%2E%2Fadmin
 
-mirror link https://evil.example.com/%3Cscript%3Ealert(1)%3C%2Fscript%3E https://example.com/?q=%3Cscript%3Ealert(1)%3C%2Fscript%3E
-https://example.com/login?next=%2F%2E%2E%2Fadmin
+mirror fails https://evil.example.com/%3Cscript%3Ealert(1)%3C%2Fscript%3E https://example.com/?q=%3Cscript%3Ealert(1)%3C%2Fscript%3E
+
 
 
 

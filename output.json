@@ -1,0 +1,51 @@
+{
+    "emails": [
+        "j*****e@gmail.com",
+        "a*****n@company.com",
+        "j*****s@gmail.com",
+        "b*****g@payments.co.uk",
+        "f*****k@company.io",
+        "t*****r@gmail.com",
+        "a*****n@company.com",
+        "b*****g@payments.co.uk",
+        "f*****k@company.io",
+        "j*****s@gmail.com"
+    ],
+    "urls": [
+        "https://www.example.com",
+        "http://blog.myservice.net",
+        "http://myservice.net/users/profile",
+        "https://sub.domain-example.org/deals",
+        "https://www.example.com",
+        "https://sub.domain-example.org/deals?page=3&x=1"
+    ],
+    "credit_cards": [
+        "**** **** **** 5422",
+        "**** **** **** 9632",
+        "**** **** **** 0004",
+        "**** **** **** 7777",
+        "**** **** **** 1124"
+    ],
+    "currency_amounts": [
+        "$12",
+        "$100.00",
+        "$19",
+        "$19.00",
+        "$0.99",
+        "$1,249.99",
+        "$12",
+        "$100.00",
+        "$19",
+        "$19.00"
+    ],
+    "hashtags": [
+        "#LaunchDay",
+        "#BigSale",
+        "#ThisIsAHashtag",
+        "#promo",
+        "#Blackfirday",
+        "#buymore",
+        "#ThisIsAHashtag",
+        "#promo"
+    ]
+}
