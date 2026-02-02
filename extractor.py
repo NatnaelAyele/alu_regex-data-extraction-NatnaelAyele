@@ -8,7 +8,7 @@ from pathlib import Path
 # Defines the base directory
 BASE_DIR = Path(__file__).resolve().parent
 
-# Input and output file names
+# Input and output file directories
 INPUT_FILE = BASE_DIR / "input.txt"
 OUTPUT_FILE = BASE_DIR / "output.json"
 
@@ -76,7 +76,7 @@ def extract_hashtags(text: str) -> list:
     Extracts hashtags from a block of text using a regex pattern and returns them.
     """
 
-    pattern = r'(#[0-9_]*[A-Za-z][A-Za-z0-9_]*)[.,]?(?=\s|$)'
+    pattern = r'(#[0-9_]*[A-Za-z][A-Za-z0-9_]*)[.,]?(?=\s|$|#)'
     return re.findall(pattern, text)
 
 def extract_credit_cards(text: str) -> list:
